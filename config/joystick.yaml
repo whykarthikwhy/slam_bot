@@ -1,0 +1,16 @@
+teleop_twist_joy:
+  ros__parameters:
+    enable_button: 4        # LB on Xbox / L1 on PS4
+    axis_linear:
+      x: 1                  # Left stick vertical
+    axis_angular:
+      yaw: 0                # Left stick horizontal
+    scale_linear:
+      x: 0.3
+    scale_angular:
+      yaw: 0.3
+
+joy_node:
+  ros__parameters:
+    device_id: 0
+    deadzone: 0.1

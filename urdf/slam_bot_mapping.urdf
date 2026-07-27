@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<robot name="slam_bot">
+    
+    <gazebo>
+        <plugin filename="gz-sim-imu-system"
+                name="gz::sim::systems::Imu"/>
+    </gazebo>
+    <gazebo reference="chassis">
+        <visual>
+            <material>
+                <ambient>0.9 0.9 0.0 1.0</ambient>
+                <diffuse>0.9 0.9 0.0 1.0</diffuse>
+                <specular>0.5 0.5 0.5 1.0</specular>
+            </material>
+        </visual>
+    </gazebo>
+    <gazebo reference="left_wheel">
+        <visual>
+            <material>
+                <ambient>0.1 0.1 0.1 1.0</ambient>
+                <diffuse>0.1 0.1 0.1 1.0</diffuse>
+                <specular>0.5 0.5 0.5 1.0</specular>
+            </material>
+        </visual>
+        <mu1>2.0</mu1>
+        <mu2>2.0</mu2>
+        <kp>1e6</kp>
+        <kd>1.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>1.0</maxVel>
+    </gazebo>
+    <gazebo reference="right_wheel">
+        <visual>
+            <material>
+                <ambient>0.1 0.1 0.1 1.0</ambient>
+                <diffuse>0.1 0.1 0.1 1.0</diffuse>
+                <specular>0.5 0.5 0.5 1.0</specular>
+            </material>
+        </visual>
+        <mu1>2.0</mu1>
+        <mu2>2.0</mu2>
+        <kp>1e6</kp>
+        <kd>1.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>1.0</maxVel>
+    </gazebo>
+    <gazebo reference="caster_wheel">
+        <visual>
+            <material>
+                <ambient>0.1 0.1 0.1 1.0</ambient>
+                <diffuse>0.1 0.1 0.1 1.0</diffuse>
+                <specular>0.5 0.5 0.5 1.0</specular>
+            </material>
+        </visual>
+        <mu1>0.01</mu1>
+        <mu2>0.01</mu2>
+        <kp>1e6</kp>
+        <kd>1.0</kd>
+    </gazebo>
+    <gazebo reference="lidar_link">
+         <visual>
+            <material>
+                <ambient>0.3 0.3 0.3 1.0</ambient>
+                <diffuse>0.3 0.3 0.3 1.0</diffuse>
+                <specular>0.5 0.5 0.5 1.0</specular>
+            </material>
+        </visual>
+    </gazebo>
+    <gazebo reference="imu_link">
+        <sensor name = "imu_sensor" type = "imu">
+            <always_on>1</always_on>
+            <update_rate>10</update_rate>
+            <visualize>true</visualize>
+            <topic>/imu</topic>
+            <gz_frame_id>imu_link</gz_frame_id>         
+        </sensor>
+    </gazebo>
+    <gazebo>
+        <plugin filename="gz-sim-sensors-system"
+                name="gz::sim::systems::Sensors">
+            <render_engine>ogre2</render_engine>
+        </plugin>
+    </gazebo>
+    <gazebo reference="lidar_link">
+        <sensor name = "lidar_sensor" type = "gpu_lidar">
+            <always_on>1</always_on>
+            <update_rate>5</update_rate>
+            <visualize>true</visualize>
+            <topic>/scan</topic>
+            <gz_frame_id>lidar_link</gz_frame_id>         
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>360</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-3.14159</min_angle>
+                        <max_angle>3.14159</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>1</samples>
+                        <resolution>0.01</resolution>
+                        <min_angle>0</min_angle>
+                        <max_angle>0</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.02</min>
+                    <max>10.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+            </ray>
+        </sensor>
+    </gazebo>
+    <link name = "lidar_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.02" radius="0.03"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+        <inertial>
+            <mass value="0.01"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+        </inertial>
+    </link>
+    <joint name="lidar_joint" type="fixed">
+        <parent link="chassis"/>
+        <child link="lidar_link"/>
+        <origin xyz="0.05 0 0.045" rpy="0 0 0"/>
+    </joint>
+    <gazebo>
+        <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+            <left_joint>left_wheel_joint</left_joint>
+            <right_joint>right_wheel_joint</right_joint>
+            <wheel_separation>0.14</wheel_separation>
+            <wheel_radius>0.04</wheel_radius>
+            <odom_publish_frequency>5</odom_publish_frequency>
+            <publish_odom>true</publish_odom>
+            <publish_odom_tf>true</publish_odom_tf> 
+            <topic>/cmd_vel</topic>
+            <odom_topic>/odom</odom_topic>
+            <frame_id>odom</frame_id>
+            <tf_topic>/tf</tf_topic>
+            <child_frame_id>base_link</child_frame_id>
+            <max_linear_acceleration>1</max_linear_acceleration>
+            <min_linear_acceleration>-1</min_linear_acceleration>
+            <max_angular_acceleration>2</max_angular_acceleration>
+            <min_angular_acceleration>-2</min_angular_acceleration>
+            <max_linear_velocity>2.0</max_linear_velocity>
+            <min_linear_velocity>-2.0</min_linear_velocity>
+            <max_angular_velocity>1</max_angular_velocity>
+            <min_angular_velocity>-1</min_angular_velocity>
+        </plugin>
+    </gazebo>
+    <gazebo>
+        <plugin
+            filename="gz-sim-pose-publisher-system"
+            name="gz::sim::systems::PosePublisher">
+        
+            <publish_link_pose>true</publish_link_pose>
+
+            <publish_nested_model_pose>true</publish_nested_model_pose>
+        
+            <update_rate>50</update_rate>
+            <static_publisher>true</static_publisher>
+            <use_pose_vector_msg>true</use_pose_vector_msg>
+            <static_update_frequency>10</static_update_frequency>
+        </plugin>
+    </gazebo>
+    
+    <gazebo>
+        <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+            <topic>/joint_states</topic>
+            <joint_name>left_wheel_joint</joint_name>
+            <joint_name>right_wheel_joint</joint_name>
+        </plugin>
+    </gazebo>
+
+    
+
+    <link name = "base_link"/>
+
+    <link name = "chassis">
+        <visual>
+            <geometry>
+                <box size="0.16 0.1 0.06"/>
+            </geometry>
+            <material name="yellow">
+                <color rgba="1 1 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.16 0.1 0.06"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="1"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="0.0011333" ixy="0" ixz="0" iyy="0.0024333" iyz="0" izz="0.0029667"/>
+        </inertial>
+    </link>
+    <joint name="chassis_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <origin xyz="0 0 0.04"/>
+    </joint>
+    <link name = "left_wheel">
+        <visual>
+            <geometry>
+                <cylinder length="0.03" radius="0.04"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+            <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.03" radius="0.04"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        </collision>
+        
+        <inertial>
+            <mass value="0.2"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="0.000095" ixy="0" ixz="0" iyy="0.00016" iyz="0" izz="0.000095"/>
+        </inertial>
+    </link>
+    <joint name="left_wheel_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="left_wheel"/>
+        <origin xyz="-0.045 0.07 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name = "right_wheel">
+        <visual>
+            <geometry>
+                <cylinder length="0.03" radius="0.04"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+            <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.03" radius="0.04"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        </collision>
+        
+        <inertial>
+            <mass value="0.2"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="0.000095" ixy="0" ixz="0" iyy="0.00016" iyz="0" izz="0.000095"/>
+        </inertial>
+    </link>
+    <joint name="right_wheel_joint" type="continuous">
+        <parent link="chassis"/>
+        <child link="right_wheel"/>
+        <origin xyz="-0.045 -0.07 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <link name = "caster_wheel">
+        <visual>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="0.000006667" ixy="0" ixz="0" iyy="0.000006667" iyz="0" izz="0.000006667"/>
+        </inertial>
+    </link>
+    <joint name="caster_wheel_joint" type="fixed">
+        <parent link="chassis"/>
+        <child link="caster_wheel"/>
+        <origin xyz="0.065 0 -0.03" rpy="0 0 0"/>
+    </joint>
+    <link name = "imu_link">
+        <inertial>
+            <mass value="0.01"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+        </inertial>
+    </link>
+    <joint name="imu_joint" type="fixed">
+        <parent link="chassis"/>
+        <child link="imu_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    
+    
+</robot>
