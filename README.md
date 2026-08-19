@@ -15,7 +15,7 @@ All four run side by side in their own ROS namespace against the same simulated 
 
 ![demo](docs/demo.gif)
 
-The gif shows all four mappers running together. The raw odometry map drifts and never corrects. The ground truth map stays clean throughout. The ICP map is corrected scan-to-scan but can still accumulate drift over time. The pose graph optimisation panel is the one to watch -- you can see the map snap back into alignment when a loop closure is detected and the graph is optimised.
+The gif shows all four mappers running together. The raw odometry map (bottom left) drifts and never corrects. The ground truth map (top left) stays clean throughout. The ICP map (top right) is corrected scan-to-scan but can still accumulate drift over time. The pose graph optimisation panel is the one to watch (bottom right) -- you can see the map snap back into alignment when a loop closure is detected and the graph is optimised.
 
 ## How the mapping works
 
