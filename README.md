@@ -93,7 +93,13 @@ source install/setup.bash
 The world, robot model, and any referenced meshes live inside this package's `models` directory. Gazebo needs to be told where to find them before launching, otherwise spawning the robot or loading the world will fail. Export the resource path (in addition to sourcing your workspace) before running any launch file:
 
 ```bash
-export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$(ros2 pkg prefix slam_bot)/share/slam_bot/models
+export GZ_SIM_RESOURCE_PATH=/<local path to slam_bot>/models
+
+```
+example:
+```bash
+export GZ_SIM_RESOURCE_PATH=/home/user/ros_ws/src/slam_bot/models
+
 ```
 
 Add this to your `.bashrc` (or a workspace setup script) if you don't want to export it every time.
