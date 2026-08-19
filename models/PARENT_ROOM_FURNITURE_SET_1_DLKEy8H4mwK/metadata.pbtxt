@@ -1,0 +1,35 @@
+model {
+  file: "model.sdf"
+}
+name: "PARENT_ROOM_FURNITURE_SET_1_DLKEy8H4mwK"
+description: "PARENT ROOM (FURNITURE SET 1)\nThe set includes a bed with blanket, an armoire, a vanity and a stool. Made of Eco-Friendly PlanWood and solid rubber wood."
+version: 1
+authors {
+  name: "Google"
+  email: "scanned-objects@google.com"
+}
+legal {
+  copyright: "Copyright 2020 Google LLC."
+  license: "Creative Commons Attribution 4.0 International"
+}
+annotations {
+  key: "brand"
+  value: "PlanToys"
+}
+annotations {
+  key: "mpn"
+  value: "7607"
+}
+annotations {
+  key: "sku"
+  value: "07607P00"
+}
+compatibilities {
+  name: "Gazebo"
+  version {
+    major: 11
+  }
+}
+categories {
+  first: "Toys"
+}

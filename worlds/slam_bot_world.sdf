@@ -66,10 +66,139 @@
       <pose>0 0 0 0 0 0</pose>
       <self_collide>false</self_collide>
     </model>
+    <model name='box'>
+      <pose>0.14000000000000001 2.8900000000000001 1.0099992329544423 -1.1512903852232769e-18 -1.3688572082551797e-17 -4.6943360441321655e-20</pose>
+      <link name='box_link'>
+        <inertial>
+          <inertia>
+            <ixx>0.16666</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.16666</iyy>
+            <iyz>0</iyz>
+            <izz>0.16666</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name='box_collision'>
+          <geometry>
+            <box>
+              <size>1 0.050000000000000003 0.20000000000000001</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='box_visual'>
+          <geometry>
+            <box>
+              <size>1 0.050000000000000003 0.20000000000000001</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='box_0'>
+      <pose>0.59999999999999998 -2.8999999999999999 1.0099999008866909 1.76914031046648e-17 -3.9475592858499643e-19 -9.6247286162366267e-21</pose>
+      <link name='box_link'>
+        <inertial>
+          <inertia>
+            <ixx>0.16666</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.16666</iyy>
+            <iyz>0</iyz>
+            <izz>0.16666</izz>
+          </inertia>
+          <mass>1</mass>
+          <pose>0 0 0 0 0 0</pose>
+        </inertial>
+        <collision name='box_collision'>
+          <geometry>
+            <box>
+              <size>0.80000000000000004 0.050000000000000003 0.20000000000000001</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='box_visual'>
+          <geometry>
+            <box>
+              <size>0.80000000000000004 0.050000000000000003 0.20000000000000001</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.300000012 0.300000012 0.300000012 1</ambient>
+            <diffuse>0.699999988 0.699999988 0.699999988 1</diffuse>
+            <specular>1 1 1 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
     <include>
-      <uri>file:///home/karburettor/ros2_ws/src/slam_bot/worlds/ionic.sdf</uri>
-      <name>turtlebot3_house</name>
-      <pose>0 0 0 0 0 0</pose>
+      <uri>file:///home/karburettor/ros2_ws/src/slam_bot/models/Lake House</uri>
+      <name>house</name>
+      <pose>0 0 -6 0 0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/karburettor/ros2_ws/src/slam_bot/models/MiniSofa</uri>
+      <name>MiniSofa</name>
+      <pose>-1.7982000000210563 0.43050000000748012 0.90909941865348631 -1.1217970898396528e-08 -2.1285421775359306e-08 -3.1415000000121838</pose>
+    </include>
+    <include>
+      <uri>file:///home/karburettor/ros2_ws/src/slam_bot/models/CoffeeTable</uri>
+      <name>CoffeeTable</name>
+      <pose>-1.0078045129775928 1.3668392896652197 0.90987903088433453 5.3935292619678715e-09 -5.5096404437362804e-09 -5.0023998670869734e-05</pose>
+    </include>
+    <include>
+      <uri>file:///home/karburettor/ros2_ws/src/slam_bot/models/MiniSofa</uri>
+      <name>MiniSofa_0</name>
+      <pose>-1.8442400693877519 2.4352746009853861 0.90910041923737017 -3.2399814080929883e-10 -1.0148718647707068e-08 3.1415900000035952</pose>
+    </include>
+    <include>
+      <uri>file:///home/karburettor/ros2_ws/src/slam_bot/models/Pendulum Sculpture</uri>
+      <name>pendulum</name>
+      <pose>-1.76259517669684 -2.6177449226379657 0.91699999566105617 -1.2856042729383324e-12 -1.472255912303918e-11 1.5707000838633971</pose>
+    </include>
+    <include>
+      <uri>file:///home/karburettor/ros2_ws/src/slam_bot/models/Bed</uri>
+      <name>Bed</name>
+      <pose>3.3169697070854292 1.9172193681725036 0.91500703225403845 0.0041563904593254711 2.9736079195839401e-06 -1.571699867289029</pose>
+    </include>
+    <include>
+      <uri>file:///home/karburettor/ros2_ws/src/slam_bot/models/Refrigerator</uri>
+      <name>Fridge</name>
+      <pose>5.513984203338623 -4.1203393936157227 0.90490001440048218 0 0 3.1415000000030977</pose>
+    </include>
+    <include>
+      <uri>file:///home/karburettor/ros2_ws/src/slam_bot/models/Office Desk</uri>
+      <name>Desk</name>
+      <pose>4.0970401763916016 -0.34090805053710938 0.88446497917175293 0 0 0</pose>
     </include>
     <light name='sun' type='directional'>
       <pose>0 0 10 0 0 0</pose>
